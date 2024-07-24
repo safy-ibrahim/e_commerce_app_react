@@ -1,0 +1,10 @@
+diff --git a/node_modules/match-sorter/dist/match-sorter.esm.js b/node_modules/match-sorter/dist/match-sorter.esm.js
+index b6f9e33..1a6c1d1 100644
+--- a/node_modules/match-sorter/dist/match-sorter.esm.js
++++ b/node_modules/match-sorter/dist/match-sorter.esm.js
+@@ -1,4 +1,4 @@
+-import removeAccents from 'remove-accents';
++import * as removeAccents from 'remove-accents';
+ 
+ /**
+  * @name match-sorter
