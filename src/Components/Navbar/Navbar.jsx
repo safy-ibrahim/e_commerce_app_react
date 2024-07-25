@@ -1,37 +1,34 @@
-import React, { useContext } from 'react'
-import { classNames } from './../Helpers/Helpers';
+import React, { useContext } from "react";
+import { classNames } from "./../Helpers/Helpers";
 import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
-} from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import Logo from '../../assets/images/freshcart-logo.svg'
-import { AuthContext } from './../../Context/AuthContext';
-import { cartCountContext } from '../../Context/CartCountContext';
+} from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import Logo from "../../assets/images/freshcart-logo.svg";
+import { AuthContext } from "./../../Context/AuthContext";
+import { cartCountContext } from "../../Context/CartCountContext";
 
 const navigation = [
-  { name: 'Home', href: '' },
-  { name: 'Products', href: 'products' },
-  { name: 'Categories', href: 'categories' },
-  { name: 'Brands', href: 'brands' },
-  { name: 'Cart', href: 'cart' },
-  { name: 'WishList', href: 'wishList' },
-
-]
+  { name: "Home", href: "" },
+  { name: "Products", href: "products" },
+  { name: "Categories", href: "categories" },
+  { name: "Brands", href: "brands" },
+  { name: "Cart", href: "cart" },
+  { name: "WishList", href: "wishList" },
+];
 
 export default function Navbar() {
-
   const { isUserLoggedIn, setIsUserLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
-  let { cartCount } = useContext(cartCountContext)
-  console.log(cartCount);
+  let { cartCount } = useContext(cartCountContext);
 
   function logOut() {
     setIsUserLoggedIn(false);
-    navigate('/login');
-    localStorage.removeItem('token')
+    navigate("/login");
+    localStorage.removeItem("token");
   }
 
   return (
@@ -56,68 +53,67 @@ export default function Navbar() {
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   {/* ----- logo -------- */}
                   <div className="flex flex-shrink-0 items-center">
-                    <img
-                      className="h-8 w-auto"
-                      src={Logo}
-                      alt="Your Company"
-                    />
+                    <img className="h-8 w-auto" src={Logo} alt="Your Company" />
                     {/* {isUserLoggedIn +''} */}
                   </div>
                   {/* ------------- links navigation ------------- */}
-                  {isUserLoggedIn && <div className="hidden sm:ml-6 sm:block">
-                    <div className="flex space-x-4">
-                      {navigation.map((item) => (
-                        <NavLink
-                          key={item.name}
-                          to={item.href}
-                          className={classNames(
-                            item.current ? 'bg-gray-900 text-white' : 'text-gray-500  ',
-                            'rounded-md px-3 py-2 text-sm font-medium'
-                          )}
-                          aria-current={item.current ? 'page' : undefined}
-                        >
-                          {item.name}
-                        </NavLink>
-                      ))}
+                  {isUserLoggedIn && (
+                    <div className="hidden sm:ml-6 sm:block">
+                      <div className="flex space-x-4">
+                        {navigation.map((item) => (
+                          <NavLink
+                            key={item.name}
+                            to={item.href}
+                            className={classNames(
+                              item.current
+                                ? "bg-gray-900 text-white"
+                                : "text-gray-500  ",
+                              "rounded-md px-3 py-2 text-sm font-medium"
+                            )}
+                            aria-current={item.current ? "page" : undefined}
+                          >
+                            {item.name}
+                          </NavLink>
+                        ))}
+                      </div>
                     </div>
-                  </div>}
+                  )}
                 </div>
                 {/* --------- notification */}
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                  {!isUserLoggedIn && <>
-                    <div className="me-4">
-                      <NavLink to='login'>
-                        Login
-                      </NavLink>
-                    </div>
-                    <div>
-                      <NavLink to='register'>
-                        Register
-                      </NavLink>
-                    </div>
-                  </>}
+                  {!isUserLoggedIn && (
+                    <>
+                      <div className="me-4">
+                        <NavLink to="login">Login</NavLink>
+                      </div>
+                      <div>
+                        <NavLink to="register">Register</NavLink>
+                      </div>
+                    </>
+                  )}
                 </div>
                 {/* ------------------------ signout---------- */}
 
-                {isUserLoggedIn && <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                  <Link
-                    to={'cart'}
-                  >
-                    <div className="relative inline-block">
-                      <span>
-                        <i className='fa-solid fa-cart-shopping text-2xl align-middle'></i>
-                      </span>
-                      <span className='absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-green-600 px-2 rounded text-white'>
-                        {cartCount}
-                      </span>
-                    </div>
-                  </Link>
-                  <button
-                    onClick={logOut}
-                    className="relative  p-1 text-gray-500  m:static sm:inset-auto sm:ml-6">
-                    Log out
-                  </button>
-                </div>}
+                {isUserLoggedIn && (
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                    <Link to={"cart"}>
+                      <div className="relative inline-block">
+                        <span>
+                          <i className="fa-solid fa-cart-shopping text-2xl align-middle"></i>
+                        </span>
+                        <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-green-600 px-2 rounded text-white">
+                          {cartCount}
+                        </span>
+                      </div>
+                    </Link>
+                    <button
+                      onClick={logOut}
+                      className="relative  p-1 text-gray-500 md:ms-4  m:static sm:inset-auto sm:ml-6"
+                    >
+                      Log out
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -129,10 +125,12 @@ export default function Navbar() {
                     as="a"
                     href={item.href}
                     className={classNames(
-                      item.current ? 'bg-gray-900 text-white' : 'text-gray-500  hover:text-white',
-                      'block rounded-md px-3 py-2 text-base font-medium'
+                      item.current
+                        ? "bg-gray-900 text-white"
+                        : "text-gray-500  hover:text-white",
+                      "block rounded-md px-3 py-2 text-base font-medium"
                     )}
-                    aria-current={item.current ? 'page' : undefined}
+                    aria-current={item.current ? "page" : undefined}
                   >
                     {item.name}
                   </DisclosureButton>
@@ -143,5 +141,5 @@ export default function Navbar() {
         )}
       </Disclosure>
     </>
-  )
+  );
 }
